@@ -24,12 +24,19 @@ public class SearchController {
     }
 
     @GetMapping("search")
-    public Collection<Movie> findByDirector(@RequestParam Long directorId) {
-        Optional<Director> optionalDirector = directorRepository.findById(directorId);
-        if (optionalDirector.isPresent()) {
-            return movieRepository.findByDirector(optionalDirector.get());
+    public Collection<Movie> findByDirector(@RequestParam(required = false) Long directorId,
+                                            @RequestParam(required = false) Integer ratingHigherThan) {
+        if (directorId != null) {
+            Optional<Director> optionalDirector = directorRepository.findById(directorId);
+            if (optionalDirector.isPresent()) {
+                return movieRepository.findByDirector(optionalDirector.get());
+            }
+            return Collections.emptyList();
+        } else if (ratingHigherThan != null) {
+            return movieRepository.findByRating_StarsGreaterThan(ratingHigherThan);
+        } else {
+            throw new RuntimeException("Eeeek");
         }
-        return Collections.emptyList();
 
     }
 }

@@ -9,4 +9,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByDirector(Director director);
 
+    List<Movie> findByRating_StarsGreaterThan(int stars);
+
 }

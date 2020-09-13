@@ -11,14 +11,14 @@ public class Rating {
     @Id
     @GeneratedValue
     private Long id;
-    private String stars;
+    private Integer stars;
 
     @SuppressWarnings("unused")
     public Rating() {
         // no-args constructor for bean creation
     }
 
-    public Rating(String stars) {
+    public Rating(Integer stars) {
         this.stars = stars;
     }
 
@@ -32,11 +32,11 @@ public class Rating {
         this.id = id;
     }
 
-    public String getStars() {
+    public Integer getStars() {
         return stars;
     }
 
-    public void setStars(String stars) {
+    public void setStars(Integer stars) {
         this.stars = stars;
     }
 

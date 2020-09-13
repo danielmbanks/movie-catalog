@@ -28,10 +28,10 @@ public class RatingControllerTest {
     @Test
     public void getById_idExists_returnsStoredRating() {
         // When
-        Rating responseRating = ratingController.getById(10L);
+        Rating responseRating = ratingController.getById(5L);
 
         // Then
-        assertEquals("1", responseRating.getStars());
+        assertEquals(1, responseRating.getStars());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class RatingControllerTest {
 
         // Then
         assertNotNull(responseRating.getId());
-        assertEquals("4", responseRating.getStars());
+        assertEquals(4, responseRating.getStars());
 
         Rating storedRating = ratingController.getById(responseRating.getId());
         assertEquals(responseRating, storedRating);
@@ -67,8 +67,8 @@ public class RatingControllerTest {
     @Test
     public void replaceRating_ratingExists_storesAndReturnsRating() {
         // Given
-        String url = "http://localhost:" + port + "/ratings/11";
-        String requestBody = "{\"stars\":\"5\"}";
+        String url = "http://localhost:" + port + "/ratings/6";
+        String requestBody = "{\"stars\":\"1\"}";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
@@ -79,11 +79,11 @@ public class RatingControllerTest {
         // Then
         Rating responseRating = response.getBody();
         assertNotNull(responseRating);
-        assertEquals(11L, responseRating.getId());
-        assertEquals("5", responseRating.getStars());
+        assertEquals(6L, responseRating.getId());
+        assertEquals(1, responseRating.getStars());
 
-        Rating storedRating = ratingController.getById(11L);
-        assertEquals("5", storedRating.getStars());
+        Rating storedRating = ratingController.getById(6L);
+        assertEquals(1, storedRating.getStars());
     }
 
     @Test
@@ -105,9 +105,9 @@ public class RatingControllerTest {
     @Test
     public void deleteRating_validId_deletesRating() {
         // Given
-        Rating storedRating = ratingController.getById(12L);
+        Rating storedRating = ratingController.getById(10L);
         assertNotNull(storedRating);
-        String url = "http://localhost:" + port + "/ratings/12";
+        String url = "http://localhost:" + port + "/ratings/10";
 
         // When
         restTemplate.delete(url);
@@ -115,7 +115,7 @@ public class RatingControllerTest {
         // Then
         RatingNotFoundException exception = Assertions.assertThrows(
                 RatingNotFoundException.class,
-                () -> ratingController.getById(12L));
-        assertEquals("Could not find rating 12", exception.getMessage());
+                () -> ratingController.getById(10L));
+        assertEquals("Could not find rating 10", exception.getMessage());
     }
 }

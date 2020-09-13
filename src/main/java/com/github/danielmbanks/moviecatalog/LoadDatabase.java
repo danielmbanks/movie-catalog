@@ -31,15 +31,25 @@ public class LoadDatabase {
             Director burton = new Director("Tim Burton");
             log.info("Preloading " + directorRepository.save(burton));
 
-            log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park", spielberg)));
-            log.info("Preloading " + movieRepository.save(new Movie("Star Wars", lucas)));
-            log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones", spielberg)));
-            log.info("Preloading " + movieRepository.save(new Movie("Gladiator", scott)));
-            log.info("Preloading " + movieRepository.save(new Movie("Kingdom of Heaven", scott)));
+            Rating oneStar = new Rating(1);
+            log.info("Preloading " + ratingRepository.save(oneStar));
+            Rating twoStars = new Rating(2);
+            log.info("Preloading " + ratingRepository.save(twoStars));
+            Rating threeStars = new Rating(3);
+            log.info("Preloading " + ratingRepository.save(threeStars));
+            Rating fourStars = new Rating(4);
+            log.info("Preloading " + ratingRepository.save(fourStars));
+            Rating fiveStars = new Rating(5);
+            log.info("Preloading " + ratingRepository.save(fiveStars));
+            Rating fiveStars2 = new Rating(5);
+            log.info("Preloading " + ratingRepository.save(fiveStars2));
 
-            log.info("Preloading " + ratingRepository.save(new Rating("1")));
-            log.info("Preloading " + ratingRepository.save(new Rating("2")));
-            log.info("Preloading " + ratingRepository.save(new Rating("3")));
+            log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park", spielberg, oneStar)));
+            log.info("Preloading " + movieRepository.save(new Movie("Star Wars", lucas, twoStars)));
+            log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones", spielberg, fourStars)));
+            log.info("Preloading " + movieRepository.save(new Movie("Gladiator", scott, threeStars)));
+            log.info("Preloading " + movieRepository.save(new Movie("Kingdom of Heaven", scott, fiveStars)));
+            log.info("Preloading " + movieRepository.save(new Movie("American Graffiti", lucas, oneStar)));
         };
     }
 }

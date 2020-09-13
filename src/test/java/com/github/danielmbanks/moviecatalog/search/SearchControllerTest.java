@@ -27,8 +27,30 @@ public class SearchControllerTest {
         String response = restTemplate.getForObject(url, String.class);
 
         // Then
-        assertEquals("[{\"id\":8,\"title\":\"Gladiator\",\"director\":{\"id\":3,\"name\":\"Ridley Scott\"}}," +
-                        "{\"id\":9,\"title\":\"Kingdom of Heaven\",\"director\":{\"id\":3,\"name\":\"Ridley Scott\"}}]",
+        assertEquals("[{\"id\":14,\"title\":\"Gladiator\"," +
+                        "\"director\":{\"id\":3,\"name\":\"Ridley Scott\"}," +
+                        "\"rating\":{\"id\":7,\"stars\":3}}," +
+                        "{\"id\":15,\"title\":\"Kingdom of Heaven\"," +
+                        "\"director\":{\"id\":3,\"name\":\"Ridley Scott\"}," +
+                        "\"rating\":{\"id\":9,\"stars\":5}}]",
+                response);
+    }
+
+    @Test
+    public void findByRatingAbove3() {
+        // Given
+        String url = "http://localhost:" + port + "/search?ratingHigherThan=3";
+
+        // When
+        String response = restTemplate.getForObject(url, String.class);
+
+        // Then
+        assertEquals("[{\"id\":13,\"title\":\"Indiana Jones\"," +
+                        "\"director\":{\"id\":1,\"name\":\"Stephen Spielberg\"}," +
+                        "\"rating\":{\"id\":8,\"stars\":4}}," +
+                        "{\"id\":15,\"title\":\"Kingdom of Heaven\"," +
+                        "\"director\":{\"id\":3,\"name\":\"Ridley Scott\"}," +
+                        "\"rating\":{\"id\":9,\"stars\":5}}]",
                 response);
     }
 }

@@ -1,6 +1,7 @@
 package com.github.danielmbanks.moviecatalog.movies;
 
 import com.github.danielmbanks.moviecatalog.directors.Director;
+import com.github.danielmbanks.moviecatalog.ratings.Rating;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -17,14 +18,19 @@ public class Movie {
     @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Director director;
 
+    @OneToOne
+    @JoinColumn(name = "rating_id", referencedColumnName = "id")
+    private Rating rating;
+
     @SuppressWarnings("unused")
     public Movie() {
         // no-args constructor for bean creation
     }
 
-    public Movie(String title, Director director) {
+    public Movie(String title, Director director, Rating rating) {
         this.title = title;
         this.director = director;
+        this.rating = rating;
     }
 
     @SuppressWarnings("unused")
@@ -55,6 +61,16 @@ public class Movie {
         this.director = director;
     }
 
+    @SuppressWarnings("unused")
+    public Rating getRating() {
+        return rating;
+    }
+
+    @SuppressWarnings("unused")
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,12 +78,13 @@ public class Movie {
         Movie movie = (Movie) o;
         return Objects.equals(id, movie.id) &&
                 Objects.equals(title, movie.title) &&
-                Objects.equals(director, movie.director);
+                Objects.equals(director, movie.director) &&
+                Objects.equals(rating, movie.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, director);
+        return Objects.hash(id, title, director, rating);
     }
 
     @Override
@@ -76,6 +93,7 @@ public class Movie {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", director=" + director +
+                ", rating=" + rating +
                 '}';
     }
 }
