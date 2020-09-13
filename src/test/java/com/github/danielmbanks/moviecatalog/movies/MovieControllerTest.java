@@ -28,7 +28,7 @@ public class MovieControllerTest {
     @Test
     public void getById_idExists_returnsStoredMovie() {
         // When
-        Movie responseMovie = movieController.getById(1L);
+        Movie responseMovie = movieController.getById(5L);
 
         // Then
         assertEquals("Jurassic Park", responseMovie.getTitle());
@@ -67,7 +67,7 @@ public class MovieControllerTest {
     @Test
     public void replaceMovie_movieExists_storesAndReturnsMovie() {
         // Given
-        String url = "http://localhost:" + port + "/movies/2";
+        String url = "http://localhost:" + port + "/movies/6";
         String requestBody = "{\"title\":\"Amistad\"}";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -79,10 +79,10 @@ public class MovieControllerTest {
         // Then
         Movie responseMovie = response.getBody();
         assertNotNull(responseMovie);
-        assertEquals(2L, responseMovie.getId());
+        assertEquals(6L, responseMovie.getId());
         assertEquals("Amistad", responseMovie.getTitle());
 
-        Movie storedMovie = movieController.getById(2L);
+        Movie storedMovie = movieController.getById(6L);
         assertEquals("Amistad", storedMovie.getTitle());
     }
 
@@ -105,9 +105,9 @@ public class MovieControllerTest {
     @Test
     public void deleteMovie_validId_deletesMovie() {
         // Given
-        Movie storedMovie = movieController.getById(3L);
+        Movie storedMovie = movieController.getById(7L);
         assertNotNull(storedMovie);
-        String url = "http://localhost:" + port + "/movies/3";
+        String url = "http://localhost:" + port + "/movies/7";
 
         // When
         restTemplate.delete(url);
@@ -115,7 +115,7 @@ public class MovieControllerTest {
         // Then
         MovieNotFoundException exception = Assertions.assertThrows(
                 MovieNotFoundException.class,
-                () -> movieController.getById(3L));
-        assertEquals("Could not find movie 3", exception.getMessage());
+                () -> movieController.getById(7L));
+        assertEquals("Could not find movie 7", exception.getMessage());
     }
 }

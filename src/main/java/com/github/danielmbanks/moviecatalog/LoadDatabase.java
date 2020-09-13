@@ -22,13 +22,20 @@ public class LoadDatabase {
                                           DirectorRepository directorRepository,
                                           RatingRepository ratingRepository) {
         return args -> {
-            log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park")));
-            log.info("Preloading " + movieRepository.save(new Movie("Star Wars")));
-            log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones")));
+            Director spielberg = new Director("Stephen Spielberg");
+            log.info("Preloading " + directorRepository.save(spielberg));
+            Director lucas = new Director("George Lucas");
+            log.info("Preloading " + directorRepository.save(lucas));
+            Director scott = new Director("Ridley Scott");
+            log.info("Preloading " + directorRepository.save(scott));
+            Director burton = new Director("Tim Burton");
+            log.info("Preloading " + directorRepository.save(burton));
 
-            log.info("Preloading " + directorRepository.save(new Director("Stephen Spielberg")));
-            log.info("Preloading " + directorRepository.save(new Director("George Lucas")));
-            log.info("Preloading " + directorRepository.save(new Director("Ridley Scott")));
+            log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park", spielberg)));
+            log.info("Preloading " + movieRepository.save(new Movie("Star Wars", lucas)));
+            log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones", spielberg)));
+            log.info("Preloading " + movieRepository.save(new Movie("Gladiator", scott)));
+            log.info("Preloading " + movieRepository.save(new Movie("Kingdom of Heaven", scott)));
 
             log.info("Preloading " + ratingRepository.save(new Rating("1")));
             log.info("Preloading " + ratingRepository.save(new Rating("2")));

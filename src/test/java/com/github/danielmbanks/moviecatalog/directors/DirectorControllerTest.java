@@ -28,7 +28,7 @@ public class DirectorControllerTest {
     @Test
     public void getById_idExists_returnsStoredDirector() {
         // When
-        Director responseDirector = directorController.getById(4L);
+        Director responseDirector = directorController.getById(1L);
 
         // Then
         assertEquals("Stephen Spielberg", responseDirector.getName());
@@ -67,7 +67,7 @@ public class DirectorControllerTest {
     @Test
     public void replaceDirector_directorExists_storesAndReturnsDirector() {
         // Given
-        String url = "http://localhost:" + port + "/directors/5";
+        String url = "http://localhost:" + port + "/directors/2";
         String requestBody = "{\"name\":\"Christopher Nolan\"}";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -79,10 +79,10 @@ public class DirectorControllerTest {
         // Then
         Director responseDirector = response.getBody();
         assertNotNull(responseDirector);
-        assertEquals(5L, responseDirector.getId());
+        assertEquals(2L, responseDirector.getId());
         assertEquals("Christopher Nolan", responseDirector.getName());
 
-        Director storedDirector = directorController.getById(5L);
+        Director storedDirector = directorController.getById(2L);
         assertEquals("Christopher Nolan", storedDirector.getName());
     }
 
@@ -105,9 +105,9 @@ public class DirectorControllerTest {
     @Test
     public void deleteDirector_validId_deletesDirector() {
         // Given
-        Director storedDirector = directorController.getById(6L);
+        Director storedDirector = directorController.getById(4L);
         assertNotNull(storedDirector);
-        String url = "http://localhost:" + port + "/directors/6";
+        String url = "http://localhost:" + port + "/directors/4";
 
         // When
         restTemplate.delete(url);
@@ -115,7 +115,7 @@ public class DirectorControllerTest {
         // Then
         DirectorNotFoundException exception = Assertions.assertThrows(
                 DirectorNotFoundException.class,
-                () -> directorController.getById(6L));
-        assertEquals("Could not find director 6", exception.getMessage());
+                () -> directorController.getById(4L));
+        assertEquals("Could not find director 4", exception.getMessage());
     }
 }

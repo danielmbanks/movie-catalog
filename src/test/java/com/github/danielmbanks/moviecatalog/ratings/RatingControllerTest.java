@@ -28,7 +28,7 @@ public class RatingControllerTest {
     @Test
     public void getById_idExists_returnsStoredRating() {
         // When
-        Rating responseRating = ratingController.getById(7L);
+        Rating responseRating = ratingController.getById(10L);
 
         // Then
         assertEquals("1", responseRating.getStars());
@@ -67,7 +67,7 @@ public class RatingControllerTest {
     @Test
     public void replaceRating_ratingExists_storesAndReturnsRating() {
         // Given
-        String url = "http://localhost:" + port + "/ratings/8";
+        String url = "http://localhost:" + port + "/ratings/11";
         String requestBody = "{\"stars\":\"5\"}";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -79,10 +79,10 @@ public class RatingControllerTest {
         // Then
         Rating responseRating = response.getBody();
         assertNotNull(responseRating);
-        assertEquals(8L, responseRating.getId());
+        assertEquals(11L, responseRating.getId());
         assertEquals("5", responseRating.getStars());
 
-        Rating storedRating = ratingController.getById(8L);
+        Rating storedRating = ratingController.getById(11L);
         assertEquals("5", storedRating.getStars());
     }
 
@@ -105,9 +105,9 @@ public class RatingControllerTest {
     @Test
     public void deleteRating_validId_deletesRating() {
         // Given
-        Rating storedRating = ratingController.getById(9L);
+        Rating storedRating = ratingController.getById(12L);
         assertNotNull(storedRating);
-        String url = "http://localhost:" + port + "/ratings/9";
+        String url = "http://localhost:" + port + "/ratings/12";
 
         // When
         restTemplate.delete(url);
@@ -115,7 +115,7 @@ public class RatingControllerTest {
         // Then
         RatingNotFoundException exception = Assertions.assertThrows(
                 RatingNotFoundException.class,
-                () -> ratingController.getById(9L));
-        assertEquals("Could not find rating 9", exception.getMessage());
+                () -> ratingController.getById(12L));
+        assertEquals("Could not find rating 12", exception.getMessage());
     }
 }
