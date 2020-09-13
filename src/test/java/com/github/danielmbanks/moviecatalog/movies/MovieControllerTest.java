@@ -1,4 +1,4 @@
-package com.github.danielmbanks.moviecatalog;
+package com.github.danielmbanks.moviecatalog.movies;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class MovieControllerTest {
     private MovieController movieController;
 
     @Test
-    public void one_idExists_returnsStoredMovie() {
+    public void getById_idExists_returnsStoredMovie() {
         // When
         Movie responseMovie = movieController.getById(1L);
 
@@ -35,7 +35,7 @@ public class MovieControllerTest {
     }
 
     @Test
-    public void one_idDoesNotExist_throwsNotFoundException() {
+    public void getById_idDoesNotExist_throwsNotFoundException() {
         // When
         Executable executable = () -> movieController.getById(999L);
 

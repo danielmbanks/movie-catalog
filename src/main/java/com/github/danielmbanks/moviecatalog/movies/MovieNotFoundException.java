@@ -1,4 +1,4 @@
-package com.github.danielmbanks.moviecatalog;
+package com.github.danielmbanks.moviecatalog.movies;
 
 public class MovieNotFoundException extends RuntimeException {
 

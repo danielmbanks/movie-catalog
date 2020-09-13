@@ -1,5 +1,8 @@
 package com.github.danielmbanks.moviecatalog;
 
+import com.github.danielmbanks.moviecatalog.directors.DirectorRepository;
+import com.github.danielmbanks.moviecatalog.movies.Movie;
+import com.github.danielmbanks.moviecatalog.movies.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,9 +17,9 @@ public class LoadDatabase {
     @Bean
     public CommandLineRunner initDatabase(MovieRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Movie("Jurassic Park")));
-            log.info("Preloading " + repository.save(new Movie("Star Wars")));
-            log.info("Preloading " + repository.save(new Movie("Indiana Jones")));
+            log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park")));
+            log.info("Preloading " + movieRepository.save(new Movie("Star Wars")));
+            log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones")));
         };
     }
 }
