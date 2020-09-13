@@ -1,5 +1,6 @@
 package com.github.danielmbanks.moviecatalog;
 
+import com.github.danielmbanks.moviecatalog.directors.Director;
 import com.github.danielmbanks.moviecatalog.directors.DirectorRepository;
 import com.github.danielmbanks.moviecatalog.movies.Movie;
 import com.github.danielmbanks.moviecatalog.movies.MovieRepository;
@@ -15,11 +16,15 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    public CommandLineRunner initDatabase(MovieRepository repository) {
+    public CommandLineRunner initDatabase(MovieRepository movieRepository, DirectorRepository directorRepository) {
         return args -> {
             log.info("Preloading " + movieRepository.save(new Movie("Jurassic Park")));
             log.info("Preloading " + movieRepository.save(new Movie("Star Wars")));
             log.info("Preloading " + movieRepository.save(new Movie("Indiana Jones")));
+
+            log.info("Preloading " + directorRepository.save(new Director("Stephen Spielberg")));
+            log.info("Preloading " + directorRepository.save(new Director("George Lucas")));
+            log.info("Preloading " + directorRepository.save(new Director("Ridley Scott")));
         };
     }
 }
